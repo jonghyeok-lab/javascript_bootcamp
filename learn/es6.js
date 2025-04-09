@@ -39,3 +39,33 @@ console.log('안녕하세요');
 setTimeout(() => console.log('Dave Lee'), 3000);
 console.log("잔재미코딩");
 
+// Promise
+const promise = new Promise(
+    (resolve, reject) => {
+        setTimeout(() => {
+            let num = 10;
+            if (num > 9) {
+                resolve(num);
+            } else {
+                reject("error");
+            }
+        }, 1000)
+    });
+
+promise.then((item) => {
+    console.log('success', item);
+}, (err) => {
+    console.log(err);
+}).then(
+    () => console.log('Dave Lee'),
+    () => console.log('error2')
+);
+
+promise.then(
+    (num) => {
+        console.log(num);
+        return 2;
+    })
+.then((num) => console.log(num)); // 2
+
+// Promise.all 은 Java의 allOf, race 는 첫번째 비동기 작업 종료만 기다림
