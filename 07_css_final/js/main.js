@@ -21,6 +21,32 @@ window.addEventListener('scroll', checkScroll);
 backToTop.addEventListener('click', moveBackToTop)
 
 /*-----------------*/
+const transformPrev = (event) => {
+    const slidePrev = event.target; // 이벤트가 가진 요소 가져옴
+    const slideNext = slidePrev.nextElementSibling;
+
+    const classList = slidePrev.parentElement.parentElement.nextElementSibling;
+    let activeLi = classList.getAttribute('data-position');
+    const liList = classList.getElementsByTagName('li');
+
+    const liWidth = liList[0]?.offsetWidth || 0;
+    if (classList.clientWidth < (liList.length * 260 + Number(activeLi))) {
+        activeLi = Number(activeLi) - 260;
+
+        if (classList.clientWidth > (liList.length * 260 + Number(activeLi))) {
+            slidePrev.style.color = '#cfd8dc';
+            slidePrev.classList.remove('slide-prev-hover')
+        }
+
+        slideNext.style.color = '#2f3059';
+        slideNext.classList.add('slide-next-hover');
+    }
+
+    classList.style.transition = 'transform 1s'; // transform속성에 애니메이션 효과를 1초 줌
+    classList.style.transform = 'translateX(' + String(activeLi) + 'px)'; //
+    classList.setAttribute('data-position', activeLi);
+}
+
 const slidePrevList = document.getElementsByClassName('slide-prev');
 
 for (let i = 0; i < slidePrevList.length; i++) {
