@@ -19,3 +19,20 @@ const moveBackToTop = () => {
 
 window.addEventListener('scroll', checkScroll);
 backToTop.addEventListener('click', moveBackToTop)
+
+/*-----------------*/
+const slidePrevList = document.getElementsByClassName('slide-prev');
+
+for (let i = 0; i < slidePrevList.length; i++) {
+    const classList = slidePrevList[i].parentElement.parentElement.nextElementSibling;
+    const liList = classList.getElementsByTagName('li');
+
+    if (classList.clientWidth < (liList.length * 260)) {
+        slidePrevList[i].classList.add('slide-prev-hover');
+        slidePrevList[i].addEventListener('click', transformPrev);
+    } else {
+        const arrowContainer = slidePrevList[i].parentElement;
+        arrowContainer.removeChild(slidePrevList[i].nextElementSibling);
+        arrowContainer.removeChild(slidePrevList[i])
+    }
+}
