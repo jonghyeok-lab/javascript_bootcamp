@@ -296,11 +296,16 @@ section {
 .class-desc {
   width: 100%;
   margin-top: 1rem;
+  color: #545e6f;
+}
+
+.class-desc:hover {
+  color: #2186c4;
 }
 
 .class-title {
   font-weight: bold;
-  color: #545e6f;
+  color: inherit;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
@@ -310,7 +315,7 @@ section {
 
 .class-detail {
   font-size: 0.9rem;
-  color: #545e6f;
+  color: inherit;
   line-height: 1.5rem;
 }
 
