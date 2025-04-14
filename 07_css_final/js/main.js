@@ -21,6 +21,31 @@ window.addEventListener('scroll', checkScroll);
 backToTop.addEventListener('click', moveBackToTop)
 
 /*-----------------*/
+const transformNext = (event) => {
+    const slideNext = event.target;
+    const slidePrev = slideNext.previousElementSibling;
+
+    const classList = slideNext.parentElement.parentElement.nextElementSibling;
+    let activeLi = classList.getAttribute('data-position');
+    const liList = classList.getElementsByTagName('li');
+
+    if (Number(activeLi) < 0) {
+        slidePrev.style.color = '#2f3059';
+        slidePrev.classList.add('slide-prev-hover');
+        slidePrev.addEventListener('click', transformPrev);
+
+        if (Number(activeLi) === 0) {
+            slideNext.style.color = '#cfd8dc';
+            slideNext.classList.remove('slide-next-hover');
+            slideNext.removeEventListener('click', transformNext);
+        }
+    }
+
+    classList.style.transition = 'transform 1s';
+    classList.style.transform = 'translateX(' + String(activeLi) + 'px)';
+    classList.setAttribute('data-position', activeLi);
+}
+
 const transformPrev = (event) => {
     const slidePrev = event.target; // 이벤트가 가진 요소 가져옴
     const slideNext = slidePrev.nextElementSibling;
@@ -36,10 +61,12 @@ const transformPrev = (event) => {
         if (classList.clientWidth > (liList.length * 260 + Number(activeLi))) {
             slidePrev.style.color = '#cfd8dc';
             slidePrev.classList.remove('slide-prev-hover')
+            slidePrev.removeEventListener('click', transformPrev);
         }
 
         slideNext.style.color = '#2f3059';
         slideNext.classList.add('slide-next-hover');
+        slideNext.addEventListener('click', transformNext)
     }
 
     classList.style.transition = 'transform 1s'; // transform속성에 애니메이션 효과를 1초 줌
